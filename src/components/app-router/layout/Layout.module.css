@@ -1,0 +1,9 @@
+.header {
+    display: flex;
+    justify-content: center;
+    background: #ebe0e9;
+    border-radius: 5px;
+    height: 60px;
+    margin-left: auto;
+    width: 100%;
+}

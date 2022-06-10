@@ -1,0 +1,14 @@
+.navbar__link{
+    align-items: center;
+    background: #ebe0e9;
+    color: #2d2e46;
+    display: flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: .4px;
+    line-height: 16px;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+}
