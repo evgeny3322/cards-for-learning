@@ -1,6 +1,5 @@
 import {Route, Routes} from "react-router-dom";
 import Profile from "../../pages/Profile/Profile";
-import Login from "../../pages/Login/Login";
 import RecoveryPassword from "../../pages/RecoveryPassword/RecoveryPassword";
 import NewPassword from "../../pages/NewPassword/NewPassword";
 import Registration from "../../pages/Registration/Registration";
@@ -8,6 +7,7 @@ import NotFound from "../../pages/NotFound/NotFound";
 import {TestsComponents} from "../../pages/TestsComponents";
 import {Layout} from "./layout/Layout";
 import style from './AppRouter.module.css'
+import {Login} from "../../pages/Login/Login";
 
 export const AppRouter = () => {
     return (
