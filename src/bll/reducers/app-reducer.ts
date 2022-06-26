@@ -1,6 +1,6 @@
+import {AppRootStateType, ThunkType} from '../store';
 import {authApi} from '../../api/auth-api';
-import {getUserData} from './login-reducer';
-import {ThunkType} from "../store";
+import {getUserData, LoginResponseType} from './login-reducer';
 
 export type LoadingStatusType = 'idle' | 'loading'
 
@@ -22,6 +22,7 @@ const initialState: InitialStateType = {
     isInitialized: false,
     trash: null
 }
+
 export const appReducer = (state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
     switch (action.type) {
         case 'app/SET-APP-ERROR':
@@ -38,9 +39,12 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
             return state;
     }
 }
+//selector
+export const selectAppStatus = (state: AppRootStateType) => state.appReducer.loadingStatus
 
 //actions
 export const setAppError = (error: string | null) => ({type: 'app/SET-APP-ERROR', error} as const)
+
 export const setLoadingStatus = (loadingStatus: LoadingStatusType) => {
     return {
         type: 'app/SET-LOADING-STATUS',

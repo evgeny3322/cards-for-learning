@@ -8,7 +8,6 @@ export const instance = axios.create({
 })
 
 export const authApi = {
-
     login(email: string, password: string, rememberMe: boolean) {
         return instance.post<LoginResponseType>('/auth/login', {email, password, rememberMe})
     },
@@ -17,6 +16,7 @@ export const authApi = {
     },
     authMe() {
         return instance.post<LoginResponseType>('/auth/me', {})
-    }
+    },
 }
+
 

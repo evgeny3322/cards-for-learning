@@ -9,7 +9,7 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import thunkMiddleware from "redux-thunk";
 
 // @ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     appReducer: appReducer,
@@ -18,8 +18,8 @@ const rootReducer = combineReducers({
     login: loginReducer,
     registration: registrationReducer,
 })
-// export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+// export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppRootActionsType = LoginActionType
