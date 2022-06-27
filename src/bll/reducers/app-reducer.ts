@@ -1,6 +1,6 @@
 import {AppRootStateType, ThunkType} from '../store';
 import {authApi} from '../../api/auth-api';
-import {getUserData, LoginResponseType} from './login-reducer';
+import {getUserData} from './login-reducer';
 
 export type LoadingStatusType = 'idle' | 'loading'
 
@@ -32,7 +32,7 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
         case 'app/SET-IS-INITIALIZED': {
             return {...state, isInitialized: action.isInitialized}
         }
-        case 'app/SET-TRASH':{
+        case 'app/SET-TRASH': {
             return {...state, trash: action.value}
         }
         default:
@@ -59,14 +59,14 @@ export const setTrash = (value?: any) => ({type: 'app/SET-TRASH', value} as cons
 
 export const authMe = (): ThunkType => async dispatch => {
     try {
-        // dispatch(setLoadingStatus('loading'))
+        dispatch(setLoadingStatus('loading'))
         const res = await authApi.authMe()
         dispatch(getUserData(res.data, true))
     } catch (e: any) {
-        // const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+        const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
     } finally {
-        // dispatch(setLoadingStatus('idle'))
-        // dispatch(setIsInitialized(true))
+        dispatch(setLoadingStatus('idle'))
+        dispatch(setIsInitialized(true))
     }
 }
 

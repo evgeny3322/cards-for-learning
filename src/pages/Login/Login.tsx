@@ -48,9 +48,8 @@ export const Login = () => {
     })
 
     if (isAuth) {
-        return <Navigate to={'/'}/>
+        return <Navigate to={'/profile'}/>
     }
-
 
     return (
         <div className={s.container}>
@@ -58,9 +57,11 @@ export const Login = () => {
                 <Grid item justifyContent={'center'}>
                     <form onSubmit={formik.handleSubmit}>
                         <FormControl sx={styleForm} variant={"filled"}>
+
                             <FormLabel>
                                 <h2 className={s.styleH}>Sign In</h2>
                             </FormLabel>
+
                             <FormGroup>
                                 <TextField
                                     id={'email'}
@@ -70,9 +71,11 @@ export const Login = () => {
                                     variant="standard"
                                     {...formik.getFieldProps('email')}
                                 />
+
                                 {formik.touched.email
                                     && formik.errors.email
                                     && <div style={{fontSize: '10px', color: 'red'}}>{formik.errors.email}</div>}
+
                                 <TextField
                                     id={'password'}
                                     variant="standard"
@@ -94,6 +97,7 @@ export const Login = () => {
                                         )
                                     }}
                                 />
+
                                 {formik.touched.password
                                     && formik.errors.password
                                     && <div style={{fontSize: '10px', color: 'red'}}>{formik.errors.password}</div>}
@@ -103,9 +107,11 @@ export const Login = () => {
                                     control={<Checkbox checked={formik.values.rememberMe}/>}
                                     {...formik.getFieldProps('rememberMe')}
                                 />
+
                                 <div style={{textAlign: "right", marginRight: "33px"}}>
                                     <Link className={s.forgotPassword} to={'/recovery-password'}>Forgot Password</Link>
                                 </div>
+
                                 <LoadingButton
                                     loadingPosition="center"
                                     loading={loadingStatus === 'loading'}
@@ -114,10 +120,12 @@ export const Login = () => {
                                 >
                                     Login
                                 </LoadingButton>
+
                                 <FormLabel>
                                     <p className={s.styleP}>Don't have an account?</p>
                                     <Link className={s.signUp} to={'/registration'}>Sign Up</Link>
                                 </FormLabel>
+
                             </FormGroup>
                         </FormControl>
                     </form>

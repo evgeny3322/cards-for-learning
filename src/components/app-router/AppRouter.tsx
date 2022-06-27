@@ -14,7 +14,8 @@ export const AppRouter = () => {
         <div className={style.app}>
             <Routes>
                 <Route path={'/'} element={<Layout/>}>
-                    <Route index element={<Profile/>}/>
+                    {/*<Route index element={<Profile/>}/>*/}
+                    <Route path={'profile'} element={<Profile/>}/>
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'recovery-password'} element={<RecoveryPassword/>}/>
                     <Route path={'new-password'} element={<NewPassword/>}/>
