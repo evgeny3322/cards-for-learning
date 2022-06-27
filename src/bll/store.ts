@@ -1,10 +1,10 @@
 import {LoginActionType, loginReducer} from "./reducers/login-reducer";
-import {appReducer} from "./reducers/app-reducer";
+import {AppActionType, appReducer} from "./reducers/app-reducer";
 import {newPasswordReducer} from "./reducers/newPassword-reducer";
 import {recoveryPasswordReducer} from "./reducers/recoveryPassword-reducer";
 import {registrationReducer} from "./reducers/registration-reducer";
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import thunkMiddleware from "redux-thunk";
 
@@ -18,11 +18,13 @@ const rootReducer = combineReducers({
     login: loginReducer,
     registration: registrationReducer,
 })
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 // export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type AppRootActionsType = LoginActionType
+export type AppRootActionsType =
+    LoginActionType
+    | AppActionType
 
 export type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppRootActionsType>
 
@@ -30,6 +32,8 @@ export type DispatchActionType = ThunkDispatch<AppRootStateType, unknown, AppRoo
 
 export const useAppDispatch = () => useDispatch<DispatchActionType>()
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
+export default store
 
 //@ts-ignore
 window.store = store

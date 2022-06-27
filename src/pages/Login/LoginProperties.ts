@@ -6,9 +6,9 @@ export const styleBtn: React.CSSProperties = {
     width: "266px",
     height: "36px",
     textTransform: "none",
-    // background: "#304352",
+    background: "#ebe0e9",
     fontSize: "16px",
-    fontWeight: "400",
+    fontWeight: "600",
     color: "#21268F",
     lineHeight: "24px",
     textDecoration: "none"

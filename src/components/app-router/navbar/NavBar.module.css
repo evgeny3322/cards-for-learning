@@ -12,3 +12,11 @@
     text-align: center;
     text-decoration: none;
 }
+
+.active{
+    color: red;
+}
+
+.activeLink{
+    color: red;
+}
