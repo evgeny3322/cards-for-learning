@@ -1,6 +1,46 @@
-export const registrationReducer = (state: any = {}, action: any): any => {
-    switch (action) {
+import {ThunkType} from '../store';
+import {registrationApi} from '../../api/registrationApi';
+import {setAppError, setLoadingStatus} from './app-reducer';
+
+type InitialStateType = typeof initialState
+const initialState = {
+    isRegistrationIn: false,
+}
+
+export const registrationReducer = (state: InitialStateType = initialState, action: RegistrationActionsType): InitialStateType => {
+    switch (action.type) {
+        case 'SET_REGISTRATION_IS_COMPLETED':
+            return {...state, isRegistrationIn: action.payload.isRegistrationIn};
         default:
             return state;
     }
 }
+// actions
+export const setRegistrationIsCompletedAC = (isRegistrationIn: boolean) =>
+    ({
+        type: 'SET_REGISTRATION_IS_COMPLETED',
+        payload: {
+            isRegistrationIn,
+        },
+    } as const);
+// thunks
+export const registrationTC =
+    (email: string, password: string): ThunkType =>
+        async dispatch => {
+            try {
+                dispatch(setLoadingStatus('loading'));
+                const {status} = await registrationApi.registration({email, password});
+                if (status) {
+                    dispatch(setRegistrationIsCompletedAC(true));
+                }
+            } catch (e:any) {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+                dispatch(setAppError(error))
+            } finally {
+                dispatch(setLoadingStatus('idle'));
+            }
+        };
+
+//types
+export type RegistrationActionsType =
+    | ReturnType<typeof setRegistrationIsCompletedAC>
