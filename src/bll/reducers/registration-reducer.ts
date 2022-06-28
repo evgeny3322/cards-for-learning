@@ -1,8 +1,9 @@
 import {ThunkType} from '../store';
-import {registrationApi} from '../../api/registrationApi';
 import {setAppError, setLoadingStatus} from './app-reducer';
+import {authApi} from "../../api/auth-api";
 
 type InitialStateType = typeof initialState
+
 const initialState = {
     isRegistrationIn: false,
 }
@@ -15,6 +16,7 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
             return state;
     }
 }
+
 // actions
 export const setRegistrationIsCompletedAC = (isRegistrationIn: boolean) =>
     ({
@@ -23,13 +25,14 @@ export const setRegistrationIsCompletedAC = (isRegistrationIn: boolean) =>
             isRegistrationIn,
         },
     } as const);
+
 // thunks
 export const registrationTC =
     (email: string, password: string): ThunkType =>
         async dispatch => {
             try {
                 dispatch(setLoadingStatus('loading'));
-                const {status} = await registrationApi.registration({email, password});
+                const {status} = await authApi.registration({email, password});
                 if (status) {
                     dispatch(setRegistrationIsCompletedAC(true));
                 }

@@ -7,12 +7,20 @@ export const instance = axios.create({
     withCredentials: true,
 })
 
+export type RegistrationParamsType = {
+    email: string,
+    password: string,
+}
+
 export const authApi = {
     login(email: string, password: string, rememberMe: boolean) {
         return instance.post<LoginResponseType>('/auth/login', {email, password, rememberMe})
     },
     authMe() {
         return instance.post<LoginResponseType>('/auth/me', {})
+    },
+    registration(data: RegistrationParamsType) {
+        return instance.post('/auth/register', data);
     },
     recoveryPassword(email: string) {
         return instance.post<{info: string}>(

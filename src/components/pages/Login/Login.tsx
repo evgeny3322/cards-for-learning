@@ -15,8 +15,8 @@ import * as Yup from 'yup';
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {Link, Navigate} from "react-router-dom";
 import s from './Login.module.css'
-import {useAppDispatch, useAppSelector} from "../../bll/store";
-import {loginTC} from "../../bll/reducers/login-reducer";
+import {useAppDispatch, useAppSelector} from "../../../bll/store";
+import {loginTC} from "../../../bll/reducers/login-reducer";
 import {LoadingButton} from "@mui/lab";
 import {styleBtn, styleForm, styleInput, styleRememberMe} from "./LoginProperties";
 
