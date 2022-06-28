@@ -11,6 +11,20 @@
     font-size: 14px;
     line-height: 24px;
 }
+.styleD {
+    color: #2D2E46;
+    opacity: 0.5;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+}
+.styleLabel {
+    margin-bottom: 60px;
+    margin-top: 20px;
+}
 .signUp {
     font-weight: 600;
     font-size: 16px;

@@ -64,6 +64,7 @@ export const authMe = (): ThunkType => async dispatch => {
         dispatch(getUserData(res.data, true))
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+        console.log(error)
     } finally {
         dispatch(setLoadingStatus('idle'))
         dispatch(setIsInitialized(true))
