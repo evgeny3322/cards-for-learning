@@ -5,6 +5,7 @@ import {AppRouter} from "./components/app-router/AppRouter";
 import {useAppDispatch, useAppSelector} from './bll/store';
 import {authMe} from "./bll/reducers/app-reducer";
 import {Loader} from "./components/common/Loader/Loader";
+import ErrorSnackbar from "./components/common/SuperComponents/c7-ErrorSnackbar/ErrorSnackbar";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -16,9 +17,11 @@ function App() {
     }, [])
 
     if (!isInitialize) return <Loader />
+
     return (
         <HashRouter>
             <AppRouter/>
+            <ErrorSnackbar/>
         </HashRouter>
     );
 }
