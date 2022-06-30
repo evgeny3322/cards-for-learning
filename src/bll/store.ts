@@ -13,6 +13,7 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
+import { ProfileActionsTypes } from './reducers/profile-reducer';
 
 // @ts-ignore
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -33,6 +34,7 @@ export type AppRootActionsType =
     | AppActionType
     | RecoveryPasswordActionsType
     | RegistrationActionsType
+    | ProfileActionsTypes
 
 export type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppRootActionsType>
 
