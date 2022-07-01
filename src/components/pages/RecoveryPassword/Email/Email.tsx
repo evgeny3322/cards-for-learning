@@ -5,12 +5,13 @@ import {useAppSelector} from "../../../../bll/store";
 
 
 const Email = () => {
-    const enteredEmail = useAppSelector<string>(state => state.recoverPassword.enteredEmail)
+    const enteredEmail = useAppSelector<string>(state => state.recoverPassword.email)
     return (
         <>
             <IconEmail/>
             <div className={styles.titleEmail}>Check Email</div>
-            <div className={styles.textEmail}>{`We've sent an Email with instructions to ${enteredEmail}`}</div>
+            {/*<div className={styles.textEmail}>{`We've sent an Email with instructions to ${enteredEmail}`}</div>*/}
+            <div className={styles.textEmail}>{`We've sent an Email with instructions to example@mail.ru`}</div>
         </>
     );
 };

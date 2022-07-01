@@ -12,7 +12,7 @@ type redirectActionType = ReturnType<typeof redirectEmail>;
 
 const initState = {
     info: '',
-    enteredEmail: '',
+    email: '',
 };
 
 export type RecoveryPasswordActionsType =
@@ -24,7 +24,7 @@ export const recoveryPasswordReducer = (state: InitStateType = initState, action
         case 'rp/SET-RESPONSE-INFO':
             return {...state, info: action.info}
         case 'rp/REDIRECT-TO-CHECK-EMAIL-SUCCESS-PAGE':
-            return {...state, enteredEmail: action.enteredEmail};
+            return {...state, email: action.email};
         default:
             return state
     }
@@ -33,9 +33,9 @@ export const recoveryPasswordReducer = (state: InitStateType = initState, action
 const setResponseInfoRecoveryPassword = (info: string) =>
     ({type: 'rp/SET-RESPONSE-INFO', info} as const)
 
-export const redirectEmail = (enteredEmail: string) =>
+export const redirectEmail = (email: string) =>
     ({type: 'rp/REDIRECT-TO-CHECK-EMAIL-SUCCESS-PAGE',
-    enteredEmail
+        email
 } as const);
 
 export const sendPasswordRecovery = (email: string): ThunkType => async (dispatch: DispatchActionType) => {
