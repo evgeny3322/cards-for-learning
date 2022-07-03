@@ -15,14 +15,14 @@ export const AppRouter = () => {
             <Routes>
                 <Route path={'/'} element={<Layout/>}>
 
-                    {/*<Route path={'set-new-password/:token'} element={<NewPassword/>}/>*/}
+                    <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
                     {/*<Route index element={<Profile/>}/>*/}
 
                     {/*<Route index element={<Profile/>}/>*/}
                     <Route path={'profile'} element={<Profile/>}/>
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'recovery-password'} element={<RecoveryPassword/>}/>
-                    <Route path={'new-password'} element={<NewPassword/>}/>
+                    {/*<Route path={'new-password'} element={<NewPassword/>}/>*/}
                     <Route path={'test-components'} element={<TestsComponents/>}/>
                     <Route path={'registration'} element={<Registration/>}/>
 
