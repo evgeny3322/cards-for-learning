@@ -2,7 +2,7 @@ import React from 'react';
 import {TextField, Typography} from '@mui/material';
 import {ErrorMessage, Form, Formik} from 'formik';
 import {Link} from 'react-router-dom';
-import {sendPasswordRecovery} from '../../../../bll/reducers/recoveryPassword-reducer';
+import {sendMailPasswordRecovery} from '../../../../bll/reducers/recoveryPassword-reducer';
 import * as Yup from 'yup';
 import {LoadingStatusType} from '../../../../bll/reducers/app-reducer';
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -29,7 +29,7 @@ export const RecoveryPasswordForm = () => {
     }
 
     const onSubmit = (values: InitialValuesType) => {
-        dispatch(sendPasswordRecovery(values.email))
+        dispatch(sendMailPasswordRecovery(values.email))
     }
 
     const forgot = {

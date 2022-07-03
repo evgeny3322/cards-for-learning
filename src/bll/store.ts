@@ -16,6 +16,7 @@ import thunkMiddleware from 'redux-thunk';
 import { ProfileActionsTypes } from './reducers/profile-reducer';
 
 // @ts-ignore
+//redux-devtools
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
@@ -26,6 +27,8 @@ const rootReducer = combineReducers({
     registration: registrationReducer,
 })
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+//redux-devtools
 // export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

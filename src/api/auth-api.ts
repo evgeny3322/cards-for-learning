@@ -2,6 +2,17 @@ import axios from "axios";
 import {LoginResponseType} from "../bll/reducers/login-reducer";
 import {ProfileStateType} from "../bll/reducers/profile-reducer";
 
+export const instanceLocal = axios.create({
+    baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
+    withCredentials: true,
+})
+
+export const instanceHeroku = axios.create({
+    baseURL: "https://neko-back.herokuapp.com/2.0",
+    withCredentials: true
+})
+
+
 export const instance = axios.create({
     // baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
     baseURL: 'https://neko-back.herokuapp.com/2.0',
@@ -21,10 +32,13 @@ export const authApi = {
         return instance.post<LoginResponseType>('/auth/login', {email, password, rememberMe})
     },
     authMe() {
-        return instance.post<LoginResponseType>('/auth/me', {})
+        return instance.post<LoginResponseType>('/auth/me')
     },
     registration(data: RegistrationParamsType) {
         return instance.post('/auth/register', data);
+    },
+    newPassword(){
+        return instance.post('/auth/set-new-password',);
     },
     updateUserInfo(name: string, avatar: string) {
         return instance.put<UpdateUserInfoType>(`auth/me`, {name, avatar})
@@ -33,29 +47,14 @@ export const authApi = {
     logOutProfile() {
         return instance.delete<{ info: string }>('/auth/me', {})
     },
-
     recoveryPassword(email: string) {
-        debugger
-        return instance.post<{ info: string }>(
-            "/auth/forgot",
-            {
-                email: email, // кому восстанавливать пароль
-                from: `test-front-admin <ai73a@yandex.by>>`,
-                // можно указать разработчика фронта)
-                // message: `<div style="background-color: #f7f7f7; padding: 15px">
-                //     Follow
-                //     <a href='https://evgeny3322.github.io/cards-for-learning/#/set-new-password/$token$'
-                //     style="font-weight: bold; color: #1a73e8;">
-                //     this link</a> to recover your password
-                //     </div>` // хтмп-письмо, вместо $token$ бэк вставит токен
-                message: `<div style="background-color: lime; padding: 15px">
-                password recovery link: 
-                <a href='http://localhost:3000/#/set-new-password/$token$'>
-                link</a>
-                </div>` // хтмп-письмо, вместо $token$ бэк вставит токен
-
-            }
-        )
+        return instanceHeroku.post('/auth/forgot', {
+            email, message:
+                `<div style="background-color: lime; padding: 15px">
+                    password recovery link: 
+                    <a href='https://evgeny3322.github.io/cards-for-learning/#/new-password/$token$'>link</a>
+                </div>`
+        })
     },
 }
 
