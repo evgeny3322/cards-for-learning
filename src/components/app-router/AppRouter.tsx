@@ -10,19 +10,17 @@ import style from './AppRouter.module.css'
 import {Login} from "../pages/Login/Login";
 
 export const AppRouter = () => {
+
     return (
         <div className={style.app}>
             <Routes>
                 <Route path={'/'} element={<Layout/>}>
 
-
-                    {/*<Route index element={<Profile/>}/>*/}
                     <Route index element={<Login/>}/>
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'profile'} element={<Profile/>}/>
                     <Route path={'recovery-password'} element={<RecoveryPassword/>}/>
-                    <Route path={'create-new-password/:token'} element={<NewPassword/>}/>
-                    {/*<Route path={'new-password'} element={<NewPassword/>}/>*/}
+                    <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
                     <Route path={'test-components'} element={<TestsComponents/>}/>
                     <Route path={'registration'} element={<Registration/>}/>
 

@@ -48,7 +48,7 @@ export const authApi = {
             email, message:
                 `<div style="background-color: lime; padding: 15px">
                     password recovery link: 
-                    <a href='https://evgeny3322.github.io/cards-for-learning/#/create-new-password/$token$'>link</a>
+                    <a href='https://evgeny3322.github.io/cards-for-learning/#/set-new-password/$token$'>link</a>
                 </div>`
         })
     },

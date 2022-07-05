@@ -1,4 +1,4 @@
-.navbar__link{
+.itemLink{
     align-items: center;
     background: #ebe0e9;
     color: #2d2e46;
@@ -13,10 +13,18 @@
     text-decoration: none;
 }
 
-.active{
-    color: red;
+.itemLink.active {
+    background: #DCCCDB;
+    position: relative;
+    text-align: center;
 }
 
-.activeLink{
-    color: red;
+.itemLink.active::after {
+    background: #07fa0b;
+    bottom: 0;
+    content: '';
+    height: 3px;
+    left: 0;
+    position: absolute;
+    width: 100%;
 }
