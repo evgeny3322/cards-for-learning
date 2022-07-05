@@ -2,10 +2,6 @@ import axios from "axios";
 import {LoginResponseType} from "../bll/reducers/login-reducer";
 import {ProfileStateType} from "../bll/reducers/profile-reducer";
 
-export const instanceLocal = axios.create({
-    baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
-    withCredentials: true,
-})
 
 export const instanceHeroku = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0",
@@ -14,8 +10,8 @@ export const instanceHeroku = axios.create({
 
 
 export const instance = axios.create({
-    // baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
+    baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
+    // baseURL: 'https://neko-back.herokuapp.com/2.0',
     withCredentials: true,
 })
 
@@ -52,7 +48,7 @@ export const authApi = {
             email, message:
                 `<div style="background-color: lime; padding: 15px">
                     password recovery link: 
-                    <a href='https://evgeny3322.github.io/cards-for-learning/#/new-password/$token$'>link</a>
+                    <a href='https://evgeny3322.github.io/cards-for-learning/#/create-new-password/$token$'>link</a>
                 </div>`
         })
     },
