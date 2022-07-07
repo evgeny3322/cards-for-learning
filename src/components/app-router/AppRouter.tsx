@@ -1,13 +1,14 @@
-import {Route, Routes} from "react-router-dom";
-import Profile from "../pages/Profile/Profile";
-import RecoveryPassword from "../pages/RecoveryPassword/RecoveryPassword";
-import NewPassword from "../pages/NewPassword/NewPassword";
-import Registration from "../pages/Registration/Registration";
-import NotFound from "../pages/NotFound/NotFound";
-import {TestsComponents} from "../pages/TestsComponents";
-import {Layout} from "./layout/Layout";
+import {Route, Routes} from 'react-router-dom';
+import Profile from '../pages/Profile/Profile';
+import RecoveryPassword from '../pages/RecoveryPassword/RecoveryPassword';
+import NewPassword from '../pages/NewPassword/NewPassword';
+import Registration from '../pages/Registration/Registration';
+import NotFound from '../pages/NotFound/NotFound';
+import {TestsComponents} from '../pages/TestsComponents';
+import {Layout} from './layout/Layout';
 import style from './AppRouter.module.css'
-import {Login} from "../pages/Login/Login";
+import {Login} from '../pages/Login/Login';
+import {CardsList} from '../pages/cards-table/CardsList';
 
 export const AppRouter = () => {
     return (
@@ -21,7 +22,7 @@ export const AppRouter = () => {
                     <Route path={'new-password'} element={<NewPassword/>}/>
                     <Route path={'test-components'} element={<TestsComponents/>}/>
                     <Route path={'registration'} element={<Registration/>}/>
-
+                    <Route path={'cards'} element={<CardsList/>}/>
                     <Route path={'*'} element={<NotFound/>}/>
                 </Route>
             </Routes>
