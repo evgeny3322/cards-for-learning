@@ -1,0 +1,16 @@
+.cardsPage {
+    display: flex;
+    width: 90%;
+    background-color: #fff;
+    padding: 30px;
+    flex-wrap: wrap;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgb(0 0 50);
+    text-align: center;
+    margin: 40px;
+}
+
+.search {
+    margin-top: 45px;
+}
