@@ -1,6 +1,5 @@
 import React from 'react';
 import s from './CardsList.module.css';
-import {SearchField} from '../../common/searchField/SearchField';
 import {Navigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {
@@ -14,6 +13,7 @@ import {CardType} from '../../../api/cards-api';
 import {styleBtn} from '../Login/LoginProperties';
 import {LoadingButton} from '@mui/lab';
 import {BackArrow} from '../../common/BackArrow/BackArrow';
+import {SearchField} from "../../common/SearchField/SearchField";
 
 export const CardsList = () => {
     const dispatch = useAppDispatch()
