@@ -1,42 +1,21 @@
 .container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    grid-auto-columns: 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "profile";
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1850px;
+    background: #F9F9FE;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 30px auto;
+    box-shadow: 0 3px 3px -2px rgb(0 0 0 / 20%), 0 3px 4px 0 rgb(0 0 0 / 14%), 0 1px 8px 0 rgb(0 0 0 / 12%);
 }
 
 .profile {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "information cards cards"
-        "information cards cards"
-        "information cards cards";
-    grid-area: profile;
-
+    width: 250px;
+    background: #ECECF9;
 }
 
 .information {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr 0.8fr;
-    grid-template-rows: 1.7fr 0.3fr 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "profileInfo profileInfo profileInfo"
-        "cardsInfo cardsInfo cardsInfo"
-        "cardsInfo cardsInfo cardsInfo";
-    grid-area: information;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
-
 }
 
 .profileInfo {
@@ -94,10 +73,26 @@
     border-radius: 50%;
 
 }
+
 .textInCardsInfo {
     text-align: center;
 }
 
 .styleForEditableSpan {
     display: block;
+}
+
+.content {
+    width: calc(100% - 250px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 30px;
+}
+
+.buttonPosition {
+    margin-bottom: 20px;
+    align-self: self-end;
+    display: flex;
+    flex-direction: column;
 }

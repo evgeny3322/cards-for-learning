@@ -6,8 +6,10 @@ import Registration from "../pages/Registration/Registration";
 import NotFound from "../pages/NotFound/NotFound";
 import {TestsComponents} from "../pages/TestsComponents";
 import {Layout} from "./layout/Layout";
-import style from './AppRouter.module.css'
 import {Login} from "../pages/Login/Login";
+import PacksList from "../pages/PacksList/PacksList";
+import style from './AppRouter.module.css'
+import {RequireAuth} from "../common/RequireAuth/RequireAuth";
 
 export const AppRouter = () => {
 
@@ -23,7 +25,12 @@ export const AppRouter = () => {
                     <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
                     <Route path={'test-components'} element={<TestsComponents/>}/>
                     <Route path={'registration'} element={<Registration/>}/>
-
+                    <Route path={'pack-table'} element={
+                        <RequireAuth>
+                            <PacksList/>
+                        </RequireAuth>
+                    } />
+                    {/*<Route path={'/cards/:id'} element={<CardsList/>} />*/}
                     <Route path={'*'} element={<NotFound/>}/>
                 </Route>
             </Routes>

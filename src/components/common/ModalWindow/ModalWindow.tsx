@@ -1,62 +1,131 @@
-import React from 'react';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import React, {ChangeEvent} from 'react';
 import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import {
+    addCardPackTC,
+    removePackTC,
+    selectPack,
+    setCurrentPackPropsAC,
+    updatePackNameTC,
+} from "../../../bll/reducers/pack-reducer";
+import {
+    controlModalWindowAC,
+    selectModal
+} from "../../../bll/reducers/modal-reducer";
+import classes from "./ModalWindow.module.css";
+import {useAppDispatch, useAppSelector} from "../../../bll/store";
+import {selectAppStatus} from "../../../bll/reducers/app-reducer";
+import {AddModal} from "../ModalComponents/AddModal";
+import {DeleteModal} from "../ModalComponents/DeleteModal";
 
-type ModalWindowPropsType = {
-    displayModal: boolean
-    title: string
-    onAnswerCallback: (ans: boolean) => void
-    onOverlayClose: () => void
-}
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    borderRadius: "5px",
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+};
 
-const ModalWindow: React.FC<ModalWindowPropsType> = React.memo( ({displayModal, title, onAnswerCallback, onOverlayClose}) => {
-    // console.log('ModalWindow rendered');
-    const onConfirmHandler = () => {
-        onAnswerCallback(true);
+
+
+export const ModalWindow = () => {
+
+    const isOpen = useAppSelector(selectModal).isOpen
+    const component = useAppSelector(selectModal).component
+    const currentPackID = useAppSelector(selectPack).currentPackID
+    const currentPackName = useAppSelector(selectPack).currentPackName
+    const status = useAppSelector(selectAppStatus)
+
+
+    const dispatch = useAppDispatch()
+
+    const closeModalClick = () => {
+        dispatch(controlModalWindowAC())
+        dispatch(setCurrentPackPropsAC())
+
     }
-    const onCancelHandler = () => {
-        onAnswerCallback(false);
+
+    const removePackClick = () => {
+        dispatch(removePackTC(currentPackID as string))
     }
 
-    const modalStyle = {
-        position: 'absolute',
-        top: '30%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '15px',
-        minWidth: '280px',
-        maxWidth: '320px',
-        p: 3,
-    };
+    // const removeCardClick = () => {
+    //     dispatch(cards.removeCard(currentPackID as string))
+    // }
 
-    const buttonsWrapperStyle = {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        gap: '10px',
-        width: '100%',
+
+    const updateCurrentPackName = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        dispatch(setCurrentPackPropsAC(e.currentTarget.value, currentPackID))
     }
+
+    const addNewPack = () => {
+        dispatch(addCardPackTC(currentPackName))
+    }
+
+    // const editCardQuestion = () => {
+    //     dispatch(cards.editCardTC(currentPackID as string, currentPackName))
+    // }
+    //
+    // const addNewCard = (question: string, answer: string) => {
+    //     dispatch(cards.addNewCard(currentPackID as string, question, answer))
+    // }
+
+    // const updatePackName = () => {
+    //     dispatch(updatePackNameTC(currentPackID as string, currentPackName))
+    // }
 
     return (
         <div>
-            <Modal open={displayModal} onClose={onOverlayClose}>
-                <Paper elevation={10} sx={modalStyle}>
-                    <Typography variant="body1" gutterBottom component="div">
-                        {title}
-                    </Typography>
-                    <Box sx={buttonsWrapperStyle}>
-                        <Button variant="contained" color="success" onClick={onConfirmHandler}>Ok</Button>
-                        <Button variant="contained" color="error" onClick={onCancelHandler}>Cancel</Button>
+            <Modal
+                open={isOpen}
+                onClose={closeModalClick}
+            >
+                <Fade in={isOpen}>
+                    <Box className={classes.modalWrapper} sx={style}>
+                        {component === "ADD" && <AddModal newPackNameValue={currentPackName}
+                                                          isLoading={status === "loading"}
+                                                          addNewPack={addNewPack}
+                                                          updateNewPackName={updateCurrentPackName}
+                                                          closeModalClick={closeModalClick}/>
+                        }
+                        {component === "DELETE" && <DeleteModal isLoading={status === "loading"}
+                                                                title={"Delete Pack"}
+                                                                removeClick={removePackClick}
+                                                                currentName={currentPackName}
+                                                                closeModalClick={closeModalClick}/>
+                        }
+                        {/*{component === "CARD-DELETE" && <DeleteModal isLoading={status === "loading"}*/}
+                        {/*                                             title={"Delete Card"}*/}
+                        {/*                                             removeClick={removeCardClick}*/}
+                        {/*                                             currentName={currentPackName}*/}
+                        {/*                                             closeModalClick={closeModalClick}/>*/}
+                        {/*}*/}
+                        {/*{component === "ADD-NEW-CARD" && <AddCardModal closeModalClick={closeModalClick}*/}
+                        {/*                                               addNewCard={addNewCard}*/}
+                        {/*                                               isLoading={status === "loading"}/>*/}
+                        {/*}*/}
+                        {/*{component === "EDIT" && <EditModal onChangeValue={updateCurrentPackName}*/}
+                        {/*                                    isLoading={status === "loading"}*/}
+                        {/*                                    updatePackName={updatePackName}*/}
+                        {/*                                    value={currentPackName}*/}
+                        {/*                                    closeModalClick={closeModalClick}/>*/}
+                        {/*}*/}
+                        {/*{component === "CARD-EDIT" && <EditCardModal closeModalClick={closeModalClick}*/}
+                        {/*                                             value={currentPackName}*/}
+                        {/*                                             onChangeValue={updateCurrentPackName}*/}
+                        {/*                                             editCardQuestion={editCardQuestion}*/}
+                        {/*                                             isLoading={status === "loading"}/>*/}
+                        {/*}*/}
                     </Box>
-                </Paper>
+                </Fade>
             </Modal>
         </div>
-    )
-})
+    );
+};
 
-export default ModalWindow;
 

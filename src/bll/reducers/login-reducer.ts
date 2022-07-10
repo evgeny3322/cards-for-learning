@@ -1,5 +1,5 @@
 import {authApi} from '../../api/auth-api';
-import {ThunkType} from "../store";
+import {AppRootStateType, ThunkType} from "../store";
 import {setAppError, setLoadingStatus} from "./app-reducer";
 
 type LoginStateType = {
@@ -49,6 +49,8 @@ export const loginReducer = (state: LoginStateType = initState, action: LoginAct
             return state
     }
 }
+//selector
+export const selectLoginIsAuth = (state: AppRootStateType) => state.login.isAuth
 
 //actions
 export const getUserData = (data: LoginResponseType, isAuth: boolean) =>

@@ -1,6 +1,7 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, Route} from "react-router-dom";
 import style from "./NavBar.module.css"
+import PacksList from "../../pages/PacksList/PacksList";
 
 const NavBar = () => {
 
@@ -16,6 +17,7 @@ const NavBar = () => {
             <NavLink className={(NavData) => styleLinks(NavData)} to={'set-new-password/:token'}>New Password</NavLink>
             <NavLink className={(NavData) => styleLinks(NavData)} to={'test-components'}>Tests Components</NavLink>
             <NavLink className={(NavData) => styleLinks(NavData)} to={'registration'}>Registration</NavLink>
+            <NavLink className={(NavData) => styleLinks(NavData)} to={'pack-table'}>Pack Table</NavLink>
         </>
     );
 };

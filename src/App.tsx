@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from './bll/store';
 import {authMe} from "./bll/reducers/app-reducer";
 import {Loader} from "./components/common/Loader/Loader";
 import ErrorSnackbar from "./components/common/SuperComponents/c7-ErrorSnackbar/ErrorSnackbar";
+import {ModalWindow} from "./components/common/ModalWindow/ModalWindow";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -20,6 +21,7 @@ function App() {
 
     return (
         <HashRouter>
+            <ModalWindow/>
             <AppRouter/>
             <ErrorSnackbar/>
         </HashRouter>
