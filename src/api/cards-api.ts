@@ -1,8 +1,9 @@
 import {instance} from './auth-api';
 
 export const CardsApi = {
-    getCards(id: string) {
-        return instance.get<CardsResponseType>(`cards/card?cardsPack_id=${id ? id : ''}`)
+    getCards({cardAnswer, cardQuestion, cardsPack_id, sortCards, min, max, page, pageCount}: CardsQueryParams) {
+        return instance.get<CardsResponseType>('/cards/card',
+            {params: {cardAnswer, cardQuestion, cardsPack_id, sortCards, min, max, page, pageCount}})
     },
     createCard(cardsPack_id: string, question: string, answer: string) {
         return instance.post<CreateCardResponseType>('/cards/card', {
@@ -46,6 +47,16 @@ export type CardsResponseType = {
     page: number
     pageCount: number
     packUserId: string
+}
+export type CardsQueryParams = {
+    cardAnswer?: string
+    cardQuestion?: string
+    cardsPack_id: string
+    min?: number
+    max?: number
+    sortCards?: string
+    page?: number
+    pageCount?: number
 }
 type CreateCardResponseType = {
     newCard: {

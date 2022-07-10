@@ -26,7 +26,7 @@ debugger
                     <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
                     <Route path={'test-components'} element={<TestsComponents/>}/>
                     <Route path={'registration'} element={<Registration/>}/>
-                    <Route path={'cards'} element={<CardsList/>}/>
+                    <Route path="cards/:cardPackID" element={<CardsList/>}/>
                     <Route path={'*'} element={<NotFound/>}/>
                     <Route path={'pack-table'} element={
                         <RequireAuth>

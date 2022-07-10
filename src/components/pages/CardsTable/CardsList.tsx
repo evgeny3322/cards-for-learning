@@ -6,41 +6,49 @@ import {
     addNewCard,
     getCards,
     OrderType,
-    searchByQuestion
+    searchByQuestion, setCardPage, setCardPageCount
 } from '../../../bll/reducers/cards-reducer';
 import {TableCards} from './TableCards';
 import {CardType} from '../../../api/cards-api';
 import {styleBtn} from '../Login/LoginProperties';
 import {LoadingButton} from '@mui/lab';
 import {BackArrow} from '../../common/BackArrow/BackArrow';
-import SearchField from "../../common/SearchField/SearchField";
-// import {SearchField} from "../../common/SearchField/SearchField";
+import SearchField from '../../common/SearchField/SearchField';
+import {Pagination} from '../../common/Pagination/Pagination';
 
 export const CardsList = () => {
     const dispatch = useAppDispatch()
-    const {id} = useParams<{ id: string }>()
+    const urlParams = useParams<'cardPackID'>();
+    const cardsPack_ID = urlParams.cardPackID as string;
 
     const isAuth = useAppSelector<boolean>(state => state.login.isAuth)
     const cards = useAppSelector<CardType[]>(state => state.cards.cards)
+    const cardsCurrentPage = useAppSelector<number>(state => state.cards.page)
+    const cardsPageCount = useAppSelector<number>(state => state.cards.pageCount)
+    const cardsTotalCount = useAppSelector<number>(state => state.cards.cardsTotalCount)
     const cardsQuestion = useAppSelector<string>(state => state.cards.cardQuestion)
     const cardsAnswer = useAppSelector<string>(state => state.cards.cardAnswer)
     const sortCards = useAppSelector(state => state.cards.sortCards)
     const order = useAppSelector<OrderType>(state => state.cards.order)
-    const cardsPackId = useAppSelector(state => state.cards.cardsPack_id)
 
     const searchByQuestionCallback = (question: string) => {
         dispatch(searchByQuestion(question))
     }
     const addNewCardHandler = () => {
-        //id - for check
-        dispatch(addNewCard('62c700b803564f0004867f3e'))//cardsPackId
+        dispatch(addNewCard(cardsPack_ID))
     }
+    const setCardsPageCallback = (page: number) => {
+        dispatch(setCardPage(page + 1))
+    }
+    const setCardsPageCountCallback = (page: number) => {
+        dispatch(setCardPageCount(page))
+    }
+
     React.useEffect(() => {
-        //id - for check
-        if ('62c700b803564f0004867f3e') {
-            dispatch(getCards('62c700b803564f0004867f3e'));//id(useParams)
+        if (cardsPack_ID) {
+            dispatch(getCards(cardsPack_ID));
         }
-    }, [cardsAnswer, cardsQuestion, cardsPackId, sortCards, order])
+    }, [cardsAnswer, cardsQuestion, cardsCurrentPage, cardsPageCount, cardsPack_ID, sortCards, order])
 
     if (!isAuth) {
         return <Navigate to={'/login'}/>;
@@ -58,7 +66,7 @@ export const CardsList = () => {
             </div>
             <LoadingButton
                 sx={[styleBtn, {
-                    width: "166px"
+                    width: '166px'
                 }]}
                 type={'submit'}
                 onClick={addNewCardHandler}
@@ -66,6 +74,12 @@ export const CardsList = () => {
                 Add New Card
             </LoadingButton>
             <TableCards cards={cards} order={order} sortCards={sortCards}/>
+            <Pagination page={cardsCurrentPage}
+                        pageCount={cardsPageCount}
+                        cardsPacksTotalCount={cardsTotalCount}
+                        setPageCallback={setCardsPageCallback}
+                        setPageCountCallback={setCardsPageCountCallback}
+            />
         </div>
     );
 };

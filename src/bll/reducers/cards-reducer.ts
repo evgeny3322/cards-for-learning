@@ -1,6 +1,6 @@
-import {ThunkType} from '../store';
+import {AppRootStateType, ThunkType} from '../store';
 import {setAppError, setLoadingStatus} from './app-reducer';
-import {CardsApi, CardType} from '../../api/cards-api';
+import {CardsApi, CardsQueryParams, CardType} from '../../api/cards-api';
 
 export type OrderType = 'desc' | 'asc'
 type InitialStateType = typeof initialState
@@ -27,6 +27,10 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
     switch (action.type) {
         case 'CARDS/SET-CARDS':
             return {...state, cards: action.cards}
+        case 'CARDS/SET_CARD_PAGE':
+            return {...state, page: action.page}
+        case 'CARDS/SET_CARD_PAGE_COUNT':
+            return {...state, pageCount: action.pageCount}
         case 'CARDS/SET-QUESTION':
             return {...state, cardQuestion: action.cardQuestion}
         case 'CARDS/SET-SORT-CARDS':
@@ -39,6 +43,14 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
 
 // action
 export const setCards = (cards: CardType[]) => ({type: 'CARDS/SET-CARDS', cards} as const)
+export const setCardPage = (page: number) => ({
+    type: 'CARDS/SET_CARD_PAGE',
+    page
+} as const)
+export const setCardPageCount = (pageCount: number) => ({
+    type: 'CARDS/SET_CARD_PAGE_COUNT',
+    pageCount
+} as const)
 export const searchByQuestion = (cardQuestion: string) => ({
     type: 'CARDS/SET-QUESTION',
     cardQuestion
@@ -49,10 +61,27 @@ export const setSortCards = (sortCards: string) => ({
 } as const)
 
 // thunk
-export const getCards = (cardsPackId: string): ThunkType => async (dispatch) => {
+export const getCards = (cardsPack_id: string): ThunkType => async (dispatch, getState: () => AppRootStateType) => {
+    const {
+        cardAnswer,
+        cardQuestion,
+        sortCards,
+        page,
+        pageCount,
+    } = getState().cards;
+
+    const queryParams: CardsQueryParams = {
+        cardAnswer,
+        cardQuestion,
+        sortCards,
+        page,
+        pageCount,
+        cardsPack_id
+    };
+
     try {
         dispatch(setLoadingStatus('loading'))
-        const res = await CardsApi.getCards(cardsPackId)
+        const res = await CardsApi.getCards(queryParams)
         dispatch(setCards(res.data.cards))
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
@@ -63,7 +92,7 @@ export const getCards = (cardsPackId: string): ThunkType => async (dispatch) => 
 }
 export const addNewCard = (packID: string): ThunkType => async (dispatch) => {
 
-    const question = 'What is React'
+    const question = 'What is React and Redux and JS'
     const answer = 'library'
 
     try {
@@ -108,3 +137,5 @@ export const updateCard = (id: string): ThunkType => async dispatch => {
 export type CardsReducerActionType = ReturnType<typeof setCards>
     | ReturnType<typeof searchByQuestion>
     | ReturnType<typeof setSortCards>
+    | ReturnType<typeof setCardPage>
+    | ReturnType<typeof setCardPageCount>
