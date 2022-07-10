@@ -7,7 +7,6 @@ import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {logoutProfile} from '../../../bll/reducers/profile-reducer';
 import Button from '@mui/material/Button';
 import {styleBtn} from "../Login/LoginProperties";
-import {SearchField} from "../../common/SearchField/SearchField";
 import {PackCard} from "../../../api/pack-api";
 import {
     setPage,
@@ -20,6 +19,7 @@ import {
 import {PackTable} from "../PacksList/PackTable/PackTable";
 import {Pagination} from "../../common/Pagination/Pagination";
 import {controlModalWindowAC} from "../../../bll/reducers/modal-reducer";
+import SearchField from "../../common/SearchField/SearchField";
 
 const Profile = () => {
 

@@ -8,10 +8,12 @@ import {TestsComponents} from '../pages/TestsComponents';
 import {Layout} from './layout/Layout';
 import style from './AppRouter.module.css'
 import {Login} from '../pages/Login/Login';
-import {CardsList} from '../pages/cards-table/CardsList';
+import {CardsList} from '../pages/CardsTable/CardsList';
+import {RequireAuth} from "../common/RequireAuth/RequireAuth";
+import PacksList from "../pages/PacksList/PacksList";
 
 export const AppRouter = () => {
-
+debugger
     return (
         <div className={style.app}>
             <Routes>
@@ -26,6 +28,11 @@ export const AppRouter = () => {
                     <Route path={'registration'} element={<Registration/>}/>
                     <Route path={'cards'} element={<CardsList/>}/>
                     <Route path={'*'} element={<NotFound/>}/>
+                    <Route path={'pack-table'} element={
+                        <RequireAuth>
+                            <PacksList/>
+                        </RequireAuth>
+                    } />
                 </Route>
             </Routes>
         </div>

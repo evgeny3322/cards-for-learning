@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavLink, Route} from "react-router-dom";
 import style from "./NavBar.module.css"
-import PacksList from "../../pages/PacksList/PacksList";
 
 const NavBar = () => {
 

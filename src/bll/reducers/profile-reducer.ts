@@ -35,25 +35,6 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
 export const updateUserInfo = (profile: ProfileStateType) =>
     ({ type: 'profile/UPDATE-USER-INFO', profile }) as const
 
-
-export const updateUserInfoTC = (name: string, avatar: string): ThunkType => async dispatch => {
-    authApi.updateUserInfo(name, avatar)
-        .then(res => {
-            if (res) {
-                dispatch(updateUserInfo(res.updatedUserInfo))
-            } else {
-                console.log('Error')
-            }
-        })
-        .catch(e => {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', more details in the console');
-
-            dispatch(error)
-        })
-}
-
 export const logoutProfile = (): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))

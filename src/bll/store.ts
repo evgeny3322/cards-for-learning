@@ -14,6 +14,8 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {ProfileActionsTypes} from './reducers/profile-reducer';
 import {cardsReducer, CardsReducerActionType} from './reducers/cards-reducer';
+import {packReducer, PackReducerActionsType} from "./reducers/pack-reducer";
+import {modalReducer, ModalReducerActionsType} from "./reducers";
 
 // @ts-ignore
 //redux-devtools
@@ -25,7 +27,9 @@ const rootReducer = combineReducers({
     recoverPassword: recoveryPasswordReducer,
     login: loginReducer,
     registration: registrationReducer,
-    cards: cardsReducer
+    cards: cardsReducer,
+    pack: packReducer,
+    modal: modalReducer
 })
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
@@ -40,7 +44,8 @@ export type AppRootActionsType =
     | RegistrationActionsType
     | ProfileActionsTypes
     | CardsReducerActionType
-
+    | ModalReducerActionsType
+    | PackReducerActionsType
 
 export type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppRootActionsType>
 

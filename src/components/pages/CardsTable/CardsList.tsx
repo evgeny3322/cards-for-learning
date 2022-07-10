@@ -13,7 +13,8 @@ import {CardType} from '../../../api/cards-api';
 import {styleBtn} from '../Login/LoginProperties';
 import {LoadingButton} from '@mui/lab';
 import {BackArrow} from '../../common/BackArrow/BackArrow';
-import {SearchField} from "../../common/SearchField/SearchField";
+import SearchField from "../../common/SearchField/SearchField";
+// import {SearchField} from "../../common/SearchField/SearchField";
 
 export const CardsList = () => {
     const dispatch = useAppDispatch()
@@ -28,7 +29,6 @@ export const CardsList = () => {
     const cardsPackId = useAppSelector(state => state.cards.cardsPack_id)
 
     const searchByQuestionCallback = (question: string) => {
-        debugger
         dispatch(searchByQuestion(question))
     }
     const addNewCardHandler = () => {
