@@ -13,7 +13,7 @@ import {RequireAuth} from "../common/RequireAuth/RequireAuth";
 import PacksList from "../pages/PacksList/PacksList";
 
 export const AppRouter = () => {
-debugger
+
     return (
         <div className={style.app}>
             <Routes>
@@ -26,7 +26,7 @@ debugger
                     <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
                     <Route path={'test-components'} element={<TestsComponents/>}/>
                     <Route path={'registration'} element={<Registration/>}/>
-                    <Route path={'cards'} element={<CardsList/>}/>
+                    <Route path={'/cards/:id'} element={<CardsList/>} />
                     <Route path={'*'} element={<NotFound/>}/>
                     <Route path={'pack-table'} element={
                         <RequireAuth>

@@ -9,21 +9,30 @@ import Paper from '@mui/material/Paper';
 import {Button, Rating, TableSortLabel} from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import {CardType} from '../../../api/cards-api';
-import {
-    deleteCard,
-    OrderType,
-    setSortCards,
-    updateCard
-} from '../../../bll/reducers/cards-reducer';
+import {OrderType, setSortCards} from '../../../bll/reducers/cards-reducer';
 import {useAppDispatch} from '../../../bll/store';
+import {ButtonCP} from '../PacksList/PackTable/PackTable';
+import {
+    controlModalWindowAC,
+    ModalComponentType,
+    setCurrentPackPropsAC
+} from '../../../bll';
 
 type TablePackPropsType = {
     cards: CardType[]
     sortCards: string
     order: OrderType
+    packUserId: string
+    authorizedUserId: string
 }
 
-export const TableCards: React.FC<TablePackPropsType> = ({cards, order, sortCards}) => {
+export const TableCards: React.FC<TablePackPropsType> = ({
+                                                             cards,
+                                                             order,
+                                                             sortCards,
+                                                             packUserId,
+                                                             authorizedUserId
+                                                         }) => {
     const dispatch = useAppDispatch()
 
     const rows = cards.map(el => createData(
@@ -38,11 +47,10 @@ export const TableCards: React.FC<TablePackPropsType> = ({cards, order, sortCard
     const onClickSortByHandler = (sortCard: string) => () => {
         dispatch(setSortCards(sortCard))
     }
-    const removeCardHandler = (id: string) => {
-        dispatch(deleteCard(id))
-    }
-    const updateCardHandler = (id: string) => {
-        dispatch(updateCard(id))
+
+    const openModalWindowHandler = (isOpen: boolean, component: ModalComponentType, packID: string, packName: string) => {
+        dispatch(controlModalWindowAC(isOpen, component))
+        dispatch(setCurrentPackPropsAC(packName, packID))
     }
 
     return (
@@ -83,24 +91,20 @@ export const TableCards: React.FC<TablePackPropsType> = ({cards, order, sortCard
                                     onClick={onClickSortByHandler('grade')}
                                 >Grade</TableSortLabel>
                             </TableCell>
+
+                            {packUserId === authorizedUserId
+                                ? <TableCell>Actions</TableCell>
+                                : null
+                            }
+
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {rows.map((row) => (
                             <TableRow
                                 key={row.cardID}
-                                sx={[styleTd, styleAlignCell]}
-                            >
-                                <TableCell>
-                                    <Button variant={'contained'}
-                                            color={'error'}
-                                            sx={{textTransform: 'none'}}
-                                            onClick={() => removeCardHandler(row.cardID)}
-                                    >Delete card</Button>
-                                    <Button variant={'contained'}
-                                            sx={{textTransform: 'none'}}
-                                            onClick={() => updateCardHandler(row.cardID)}
-                                    >Edit</Button> {row.question}</TableCell>
+                                sx={[styleTd, styleAlignCell]}>
+                                <TableCell>{row.question}</TableCell>
                                 <TableCell>{row.answer}</TableCell>
                                 <TableCell>{row.updatedDate}</TableCell>
                                 <TableCell>
@@ -113,6 +117,28 @@ export const TableCards: React.FC<TablePackPropsType> = ({cards, order, sortCard
                                                              fontSize="inherit"/>}
                                     />
                                 </TableCell>
+                                {packUserId === authorizedUserId
+                                    ? <TableCell>
+                                        <div style={{
+                                            display: 'flex',
+                                            gap: '14px',
+                                            justifyContent: 'end'
+                                        }}>
+                                            {row.cardsPackOwnerID === authorizedUserId &&
+                                                <Button variant={'contained'}
+                                                        color={'error'}
+                                                        sx={{textTransform: 'none'}}
+                                                        onClick={() => openModalWindowHandler(true, 'CARD-DELETE', row.cardID, row.question)}
+                                                >Delete</Button>
+                                            }
+                                            {row.cardsPackOwnerID === authorizedUserId &&
+                                                <ButtonCP
+                                                    onClick={() => openModalWindowHandler(true, 'CARD-EDIT', row.cardID, row.question)}>Edit</ButtonCP>
+                                            }
+                                        </div>
+                                    </TableCell>
+                                    : null
+                                }
                             </TableRow>
                         ))}
                     </TableBody>
@@ -123,11 +149,11 @@ export const TableCards: React.FC<TablePackPropsType> = ({cards, order, sortCard
     );
 }
 
-// style
 const styleTHead = {
-    background: '#33b198',
+    background: '#2c2b3f',
     'th': {color: '#fff', fontWeight: 'bold'},
-    'th: nth-of-type(4)': {width: '158px'}
+    'th: nth-of-type(4)': {width: '158px'},
+    'th: nth-of-type(5)': {width: '186px'}
 }
 const styleTd = {
     '&:last-child td, &:last-child th': {border: 0},
@@ -141,7 +167,6 @@ const styleActiveLabel = {
     '& svg': {color: '#fff !important'}
 }
 
-// type
 interface Data {
     question: string;
     answer: string;
