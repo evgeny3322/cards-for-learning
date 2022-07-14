@@ -1,29 +1,21 @@
-import {instance} from './auth-api';
+import {instance} from "./auth-api";
 
 export const CardsApi = {
-    getCards({cardAnswer, cardQuestion, cardsPack_id, sortCards, min, max, page, pageCount}: CardsQueryParams) {
+    fetchCards({cardAnswer, cardQuestion, cardsPack_id, sortCards, min, max, page, pageCount}: CardsQueryParams) {
         return instance.get<CardsResponseType>('/cards/card',
             {params: {cardAnswer, cardQuestion, cardsPack_id, sortCards, min, max, page, pageCount}})
     },
-    createCard(cardsPack_id: string, question: string, answer: string) {
-        return instance.post<CreateCardResponseType>('/cards/card', {
-            card: {
-                cardsPack_id,
-                question,
-                answer
-            }
-        })
+    addNewCard(cardsPack_id: string, question: string, answer: string) {
+        return instance.post('/cards/card', {card: {cardsPack_id, question, answer}})
     },
-    deleteCard(cardId: string) {
-        return instance.delete<DeleteCardResponseType>(`cards/card/?id=${cardId}`);
+    deleteCard(id: string) {
+        return instance.delete('/cards/card', {params: {id}})
     },
     updateCard(_id: string, question: string) {
-        return instance.put<UpdatedCardResponseType>('cards/card', {
-            card: {
-                _id,
-                question
-            }
-        });
+        return instance.put('/cards/card', {card: {_id, question}})
+    },
+    updateGrade(card_id: string, grade: number) {
+        return instance.put<GradeResponseType>('/cards/grade', {grade, card_id})
     }
 }
 
@@ -58,18 +50,15 @@ export type CardsQueryParams = {
     page?: number
     pageCount?: number
 }
-type CreateCardResponseType = {
-    newCard: {
+export type GradeResponseType = {
+    updatedGrade: {
+        _id: string
         cardsPack_id: string
+        card_id: string
+        user_id: string
+        grade: number
+        shots: number
     }
-}
-type DeleteCardResponseType = {
-    deletedCard: {
-        cardsPack_id: string
-    }
-}
-type UpdatedCardResponseType = {
-    updatedCard: {
-        cardsPack_id: string
-    }
+    token: string
+    tokenDeathTime: Date
 }

@@ -1,16 +1,29 @@
-.cardsPage {
+.contentBlock {
     display: flex;
-    width: 90%;
-    background-color: #fff;
-    padding: 30px;
-    flex-wrap: wrap;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
-    box-shadow: 0 5px 15px rgb(0 0 50);
-    text-align: center;
-    margin: 20px auto;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    padding: 40px 30px;
 }
 
-.search {
-    margin-top: 45px;
+.backLinkWrapper {
+    display: flex;
+}
+
+.backLink {
+    display: flex;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #33b198;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cardsSearchBar {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
 }

@@ -1,27 +1,34 @@
 import React from 'react';
 import s from './CardsList.module.css';
-import {Navigate, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {
-    addNewCard,
-    getCards,
-    OrderType,
-    searchByQuestion, setCardPage, setCardPageCount
+    fetchCards,
+    OrderType, searchByAnswer,
+    searchByQuestion,
+    setCardPage,
+    setCardPageCount,
+    setCards,
+    setPackId
 } from '../../../bll/reducers/cards-reducer';
 import {TableCards} from './TableCards';
 import {CardType} from '../../../api/cards-api';
-import {styleBtn} from '../Login/LoginProperties';
-import {LoadingButton} from '@mui/lab';
-import {BackArrow} from '../../common/BackArrow/BackArrow';
+import {Button} from '@mui/material';
+import styles from '../Profile/Profile.module.css';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import SearchField from '../../common/SearchField/SearchField';
 import {Pagination} from '../../common/Pagination/Pagination';
+import {
+    controlModalWindowAC,
+    ModalComponentType,
+    setCurrentPackPropsAC
+} from '../../../bll';
+import {styleBtn} from '../../../styles/commonMui';
 
 export const CardsList = () => {
     const dispatch = useAppDispatch()
-    const urlParams = useParams<'cardPackID'>();
-    const cardsPack_ID = urlParams.cardPackID as string;
+    const {id: packUrlId} = useParams()
 
-    const isAuth = useAppSelector<boolean>(state => state.login.isAuth)
     const cards = useAppSelector<CardType[]>(state => state.cards.cards)
     const cardsCurrentPage = useAppSelector<number>(state => state.cards.page)
     const cardsPageCount = useAppSelector<number>(state => state.cards.pageCount)
@@ -30,12 +37,20 @@ export const CardsList = () => {
     const cardsAnswer = useAppSelector<string>(state => state.cards.cardAnswer)
     const sortCards = useAppSelector(state => state.cards.sortCards)
     const order = useAppSelector<OrderType>(state => state.cards.order)
+    const cardsPackUserID = useAppSelector(state => state.cards.packUserId)
+
+    //todo может потом перенести
+    const authorizedUserId = useAppSelector(state => state.login.data._id)
 
     const searchByQuestionCallback = (question: string) => {
         dispatch(searchByQuestion(question))
     }
-    const addNewCardHandler = () => {
-        dispatch(addNewCard(cardsPack_ID))
+    const searchByAnswerCallback = (answer: string) => {
+        dispatch(searchByAnswer(answer))
+    }
+    const backToPacksHandler = () => {
+        dispatch(setCards([]))
+        dispatch(searchByQuestion(''))
     }
     const setCardsPageCallback = (page: number) => {
         dispatch(setCardPage(page + 1))
@@ -43,43 +58,80 @@ export const CardsList = () => {
     const setCardsPageCountCallback = (page: number) => {
         dispatch(setCardPageCount(page))
     }
-
-    React.useEffect(() => {
-        if (cardsPack_ID) {
-            dispatch(getCards(cardsPack_ID));
-        }
-    }, [cardsAnswer, cardsQuestion, cardsCurrentPage, cardsPageCount, cardsPack_ID, sortCards, order])
-
-    if (!isAuth) {
-        return <Navigate to={'/login'}/>;
+    const openModalWindowHandler = (isOpen: boolean, component: ModalComponentType, packID: string, packName: string) => {
+        dispatch(controlModalWindowAC(isOpen, component))
+        dispatch(setCurrentPackPropsAC(packName, packID))
     }
 
+    React.useEffect(() => {
+        packUrlId && dispatch(setPackId(packUrlId))
+    }, [])
+
+    React.useEffect(() => {
+        dispatch(fetchCards())
+    }, [cardsAnswer, cardsQuestion, cardsCurrentPage, cardsPageCount, packUrlId, sortCards, order])
+
     return (
-        <div className={s.cardsPage}>
-            <BackArrow/>
-            <div className={s.search}>
-                <SearchField
-                    searchCallback={searchByQuestionCallback}
-                    placeholder={'Search'}
-                    initState={cardsQuestion}
-                />
+        <div style={{margin: '30px auto'}}>
+            <div className={styles.container}>
+                <div className={s.contentBlock}>
+                    <div className={s.backLinkWrapper}>
+                        <Link className={s.backLink} to={'../pack-table'}
+                              onClick={backToPacksHandler}>
+                            <ArrowRightAltIcon sx={arrow}/>
+                            Back</Link>
+                    </div>
+                    <div className={s.cardsSearchBar}>
+                        <SearchField
+                            searchCallback={searchByQuestionCallback}
+                            placeholder={'Question'}
+                            initState={cardsQuestion}
+                        />
+                        <SearchField
+                            searchCallback={searchByAnswerCallback}
+                            placeholder={'Answer'}
+                            initState={cardsAnswer}
+                        />
+                    </div>
+
+                    {cardsPackUserID === authorizedUserId &&
+                        <div>
+                            <Button
+                                sx={[styleBtn, {
+                                    borderRadius: '4px',
+                                    fontWeight: 'bold',
+                                    margin: '0 0 14px 0',
+                                    padding: '8px 16px 4px',
+                                    color: '#2c2b3f',
+                                    height: 'auto'
+                                }]}
+                                variant={'contained'}
+                                onClick={() => openModalWindowHandler(true, 'ADD-NEW-CARD', packUrlId as string, '')}
+                            >
+                                Add new Card
+                            </Button>
+                        </div>
+                    }
+
+                    <TableCards cards={cards}
+                                order={order}
+                                sortCards={sortCards}
+                                packUserId={cardsPackUserID}
+                                authorizedUserId={authorizedUserId}/>
+                    <Pagination page={cardsCurrentPage}
+                                pageCount={cardsPageCount}
+                                cardsPacksTotalCount={cardsTotalCount}
+                                setPageCallback={setCardsPageCallback}
+                                setPageCountCallback={setCardsPageCountCallback}
+                    />
+                </div>
             </div>
-            <LoadingButton
-                sx={[styleBtn, {
-                    width: '166px'
-                }]}
-                type={'submit'}
-                onClick={addNewCardHandler}
-            >
-                Add New Card
-            </LoadingButton>
-            <TableCards cards={cards} order={order} sortCards={sortCards}/>
-            <Pagination page={cardsCurrentPage}
-                        pageCount={cardsPageCount}
-                        cardsPacksTotalCount={cardsTotalCount}
-                        setPageCallback={setCardsPageCallback}
-                        setPageCountCallback={setCardsPageCountCallback}
-            />
         </div>
     );
 };
+const arrow = {
+    height: '1.4em',
+    width: '1.4em',
+    transform: 'scale(-1)',
+    marginRight: '6px'
+}
