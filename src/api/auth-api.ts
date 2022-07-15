@@ -29,6 +29,9 @@ export const authApi = {
     authMe() {
         return instance.post<LoginResponseType>('/auth/me')
     },
+    setNewPass(password: string, token: string) {
+        return instance.post("/auth/set-new-password", {password: password, resetPasswordToken: token})
+    },
     registration(data: RegistrationParamsType) {
         return instance.post('/auth/register', data);
     },
