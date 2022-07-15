@@ -1,8 +1,9 @@
 import {AppRootStateType, ThunkType} from '../store';
-import {setAppError, setLoadingStatus} from './app-reducer';
+import {setAppError, setLoadingStatus, setTrash} from './app-reducer';
 import {CardsApi, CardsQueryParams, CardType} from '../../api/cards-api';
 import {controlModalWindowAC} from './modal-reducer';
-import {setCurrentPackPropsAC} from './pack-reducer';
+import {fetchCardsPack, setCurrentPackPropsAC} from './pack-reducer';
+import {CardsPackAPI} from "../../api/pack-api";
 
 export type OrderType = 'desc' | 'asc'
 const initialState: InitialStateType = {
@@ -171,6 +172,25 @@ export const editCardTC = (id: string, question: string): ThunkType => async dis
         dispatch(setCurrentPackPropsAC())
     }
 }
+
+export const updatePackNameTC = (id: string, name: string): ThunkType =>
+    async (
+        dispatch,
+    ) => {
+        try {
+            dispatch(setLoadingStatus('loading'))
+            const res = await CardsPackAPI.updatePack(id, name)
+            dispatch(setTrash(res.data))
+            dispatch(fetchCardsPack())
+        } catch (e: any) {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+            dispatch(setAppError(error))
+        } finally {
+            dispatch(setLoadingStatus('idle'))
+            dispatch(controlModalWindowAC())
+            dispatch(setCurrentPackPropsAC())
+        }
+    }
 
 export const updateCardGrade = (id: string, grade: number): ThunkType => async dispatch => {
     try {

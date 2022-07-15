@@ -11,6 +11,7 @@ import {Login} from '../pages/Login/Login';
 import {CardsList} from '../pages/CardsTable/CardsList';
 import {RequireAuth} from "../common/RequireAuth/RequireAuth";
 import PacksList from "../pages/PacksList/PacksList";
+import LearnPack from "../pages/CardsTable/LearnCard";
 
 export const AppRouter = () => {
 
@@ -27,12 +28,14 @@ export const AppRouter = () => {
                     <Route path={'test-components'} element={<TestsComponents/>}/>
                     <Route path={'registration'} element={<Registration/>}/>
                     <Route path={'/cards/:id'} element={<CardsList/>} />
-                    <Route path={'*'} element={<NotFound/>}/>
+                    <Route path={'/card/:id'} element={<LearnPack/>}/>
                     <Route path={'pack-table'} element={
                         <RequireAuth>
                             <PacksList/>
                         </RequireAuth>
                     } />
+
+                    <Route path={'*'} element={<NotFound/>}/>
                 </Route>
             </Routes>
         </div>

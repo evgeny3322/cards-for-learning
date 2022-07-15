@@ -30,15 +30,26 @@ export const DeleteModal: FC<PropsType> =
                 </p>
 
                 <div className={classes.btnGroup}>
-                    <ButtonCP style={{width: "130px", backgroundColor: '#7f8383'}}
-                              onClick={closeModalClick}>Cancel</ButtonCP>
+                    <ButtonCP
+                        variant={'contained'}
+                        sx={[{
+                            height: 'auto',
+                            background: 'linear-gradient(to right, #344654, #344654)'
+                        }]}
+                        onClick={closeModalClick}
+                    >
+                        Cancel
+                    </ButtonCP>
                     <LoadingButton
                         loading={isLoading}
                         loadingPosition="center"
-                        variant="contained"
                         style={{width: "130px"}}
-                        color={'error'}
-                        sx={{textTransform: 'none'}}
+                        sx={[{
+                            color: '#ffff',
+                            height: 'auto',
+                            background: 'linear-gradient(to right, #f50000, #f50000)'
+                        }]}
+                        variant={'contained'}
                         onClick={removeClick}
                     >
                         Delete

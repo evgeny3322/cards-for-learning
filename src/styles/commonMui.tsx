@@ -11,11 +11,3 @@ export const styleBtn: React.CSSProperties = {
     background: 'linear-gradient(to right, #f8FFAE, #43C6AC)',
 }
 
-export const titleOne: React.CSSProperties = {
-    fontStyle: 'normal',
-    fontWeight: 600,
-    fontSize: 26,
-    lineHeight: '39px',
-    color: '#2D2E46',
-    marginBottom: '30px'
-}

@@ -24,7 +24,6 @@ export const PackTable: React.FC<TablePackPropsType> = ({pack, sortBy, order}) =
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-    //todo может потом перенести
     const authorizedUserId = useAppSelector(state => state.login.data._id)
     const status = useAppSelector(state => state.appReducer.loadingStatus)
 
@@ -49,7 +48,6 @@ export const PackTable: React.FC<TablePackPropsType> = ({pack, sortBy, order}) =
 
     const handlerLearnCards = (id: string, name: string) => {
         navigate(`../card/${id}`)
-        // dispatch(setPackId(id))
         dispatch(setSearchPackName(name))
     }
 
@@ -112,7 +110,7 @@ function createData(
 
 export const ButtonCP = styled(Button)<ButtonProps>(() => ({
     backgroundColor: '#33b198',
-    color: '#fff',
+    color: '#ffff',
     boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
     transition: '.3s',
     textTransform: 'none',

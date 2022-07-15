@@ -10,11 +10,12 @@ import {
     selectAppStatus,
     selectModal,
     selectPack,
-    setCurrentPackPropsAC
+    setCurrentPackPropsAC, updatePackNameTC
 } from '../../../bll';
 import classes from './ModalWindow.module.css';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {AddCardModal, AddModal, DeleteModal, EditCardModal} from '../ModalComponents';
+import {EditModal} from "../ModalComponents/EditModal";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -70,9 +71,10 @@ export const ModalWindow = () => {
     const addNewCard = (question: string, answer: string) => {
         dispatch(cards.addNewCard(currentPackID as string, question, answer))
     }
-    // const updatePackName = () => {
-    //     dispatch(updatePackNameTC(currentPackID as string, currentPackName))
-    // }
+
+    const updatePackName = () => {
+        dispatch(updatePackNameTC(currentPackID as string, currentPackName))
+    }
 
     return (
         <div>
@@ -108,13 +110,13 @@ export const ModalWindow = () => {
                                           addNewCard={addNewCard}
                                           isLoading={status === 'loading'}/>
                         }
-                        {/*{component === 'EDIT' &&
+                        {component === 'EDIT' &&
                             <EditModal onChangeValue={updateCurrentPackName}
                                        isLoading={status === 'loading'}
                                        updatePackName={updatePackName}
                                        value={currentPackName}
                                        closeModalClick={closeModalClick}/>
-                        }*/}
+                        }
                         {component === 'CARD-EDIT' &&
                             <EditCardModal closeModalClick={closeModalClick}
                                            value={currentPackName}

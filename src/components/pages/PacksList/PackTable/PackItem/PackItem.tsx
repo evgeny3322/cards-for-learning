@@ -3,7 +3,6 @@ import TableCell from "@mui/material/TableCell";
 import {Button} from "@mui/material";
 import TableRow from "@mui/material/TableRow";
 import {Link} from "react-router-dom";
-import {ButtonCP} from "../PackTable";
 import {ModalComponentType} from "../../../../../bll/reducers/modal-reducer";
 
 const styleTd = {
@@ -53,7 +52,6 @@ export const PackItem: FC<PropsType> = (props) => {
         <TableRow
             key={packID}
             sx={[styleTd, styleAlignCell]}
-            // sx={{'&:last-child td, &:last-child th': {border: 0}}}
         >
             <TableCell><Link to={`/cards/${packID}`} onClick={
                 (
@@ -66,23 +64,38 @@ export const PackItem: FC<PropsType> = (props) => {
             <TableCell>
                 <div style={{display: 'flex', gap: '14px', justifyContent: 'end'}}>
                     {packUserID === authorizedUserId &&
-                        <Button variant={'contained'}
-                                color={'error'}
-                                sx={{textTransform: 'none'}}
-                                onClick={() => openModalWindow(true, "DELETE", packID, packName)}
+                        <Button
+                            sx={[{
+                                color: '#ffff',
+                                height: 'auto',
+                                background: 'linear-gradient(to right, #f50000, #f50000)'
+                            }]}
+                            variant={'contained'}
+                            onClick={() => openModalWindow(true, "DELETE", packID, packName)}
                         >Delete</Button>
                     }
                     {packUserID === authorizedUserId &&
-                        <ButtonCP
+                        <Button
+                            variant={'contained'}
+                            sx={[{
+                                height: 'auto',
+                                background: 'linear-gradient(to right, #344654, #344654)'
+                            }]}
                             onClick={() => openModalWindow(true, "EDIT", packID, packName)}
-                        >Edit</ButtonCP>
+                        >Edit</Button>
                     }
-                    <ButtonCP
+                    <Button
+                        variant={'contained'}
+                        sx={[{
+                            height: 'auto',
+                            background: 'linear-gradient(to right, #344654, #344654)'
+                        }]}
                         disabled={!cardsCount && !isOwner}
                         onClick={() => handlerLearnCards(packID, packName)}
-                    >Learn</ButtonCP>
+                    >Learn</Button>
                 </div>
             </TableCell>
         </TableRow>
     );
 };
+
