@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PacksList = () => {
+const PacksTable = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const PacksList = () => {
     );
 };
 
-export default PacksList;
+export default PacksTable;
