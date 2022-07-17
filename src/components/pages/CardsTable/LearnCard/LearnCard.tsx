@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import classes from './CardsStyle.module.css'
+import classes from '../CardsStyle.module.css'
 import {Button, Grid, Typography} from '@mui/material';
 import {useNavigate, useParams} from 'react-router-dom';
-import {CardType} from "../../../api/cards-api";
-import {useAppDispatch, useAppSelector} from "../../../bll/store";
-import {fetchCards, setCards, setPackId, updateCardGrade} from "../../../bll/reducers/cards-reducer";
-import {setSearchPackName} from "../../../bll/reducers/pack-reducer";
-import {styleBtn} from "../../../styles/commonMui";
-import AnswerForm from "./AnswerForm";
+import {CardType} from "../../../../api/cards-api";
+import {useAppDispatch, useAppSelector} from "../../../../bll/store";
+import {fetchCards, setCards, setPackId, updateCardGrade} from "../../../../bll/reducers/cards-reducer";
+import {setSearchPackName} from "../../../../bll/reducers/pack-reducer";
+import {styleBtn} from "../../../../styles/commonMui";
+import AnswerForm from "../AnswerForm/AnswerForm";
 
 
 const getCard = (cards: CardType[]) => {

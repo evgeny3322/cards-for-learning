@@ -18,6 +18,7 @@ function App() {
     }, [])
 
     if (!isInitialize) return <Loader />
+
     return (
         <HashRouter>
             <ModalWindow/>
