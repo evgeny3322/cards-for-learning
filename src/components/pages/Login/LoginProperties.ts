@@ -26,6 +26,7 @@ export const styleForm: React.CSSProperties = {
 export const styleInput: React.CSSProperties = {
     margin: "10px auto 0",
     width: "347px",
+    backgroundColor:"#ffff"
 }
 export const styleRememberMe: React.CSSProperties = {
     width: "347px",
