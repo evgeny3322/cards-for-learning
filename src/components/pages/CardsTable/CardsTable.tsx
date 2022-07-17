@@ -26,7 +26,7 @@ type TablePackPropsType = {
     authorizedUserId: string
 }
 
-export const TableCards: React.FC<TablePackPropsType> = ({
+export const CardsTable: React.FC<TablePackPropsType> = ({
                                                              cards,
                                                              order,
                                                              sortCards,

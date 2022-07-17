@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './CardsList.module.css';
 import {Link, useParams} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../../bll/store';
+import {useAppDispatch, useAppSelector} from '../../../../bll/store';
 import {
     fetchCards,
     OrderType, searchByAnswer,
@@ -10,20 +10,20 @@ import {
     setCardPageCount,
     setCards,
     setPackId
-} from '../../../bll/reducers/cards-reducer';
-import {TableCards} from './TableCards';
-import {CardType} from '../../../api/cards-api';
+} from '../../../../bll/reducers/cards-reducer';
+import {CardsTable} from '../CardsTable';
+import {CardType} from '../../../../api/cards-api';
 import {Button} from '@mui/material';
-import styles from '../Profile/Profile.module.css';
+import styles from '../../Profile/Profile.module.css';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import SearchField from '../../common/SearchField/SearchField';
-import {Pagination} from '../../common/Pagination/Pagination';
+import SearchField from '../../../common/SearchField/SearchField';
+import {Pagination} from '../../../common/Pagination/Pagination';
 import {
     controlModalWindowAC,
     ModalComponentType,
     setCurrentPackPropsAC
-} from '../../../bll';
-import {styleBtn} from '../../../styles/commonMui';
+} from '../../../../bll';
+import {styleBtn} from '../../../../styles/commonMui';
 
 export const CardsList = () => {
     const dispatch = useAppDispatch()
@@ -39,7 +39,6 @@ export const CardsList = () => {
     const order = useAppSelector<OrderType>(state => state.cards.order)
     const cardsPackUserID = useAppSelector(state => state.cards.packUserId)
 
-    //todo может потом перенести
     const authorizedUserId = useAppSelector(state => state.login.data._id)
 
     const searchByQuestionCallback = (question: string) => {
@@ -113,7 +112,7 @@ export const CardsList = () => {
                         </div>
                     }
 
-                    <TableCards cards={cards}
+                    <CardsTable cards={cards}
                                 order={order}
                                 sortCards={sortCards}
                                 packUserId={cardsPackUserID}

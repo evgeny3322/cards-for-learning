@@ -11,16 +11,20 @@
     padding: 5px 20px;
     text-align: center;
     text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .itemLink.active {
     background: #DCCCDB;
     position: relative;
     text-align: center;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .itemLink.active::after {
-    background: #07fa0b;
+    background: #374856;
     bottom: 0;
     content: '';
     height: 3px;

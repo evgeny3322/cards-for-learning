@@ -20,6 +20,7 @@ import {PackTable} from "../PacksList/PackTable/PackTable";
 import {Pagination} from "../../common/Pagination/Pagination";
 import {controlModalWindowAC} from "../../../bll/reducers/modal-reducer";
 import SearchField from "../../common/SearchField/SearchField";
+import {RangeSlider} from "../../common/RangeSlider/RangeSllider";
 
 const Profile = () => {
 
@@ -41,6 +42,8 @@ const Profile = () => {
     const order = useAppSelector<'desc' | 'asc'>(state => state.pack.order)
     const maxSort = useAppSelector<number>(state => state.pack.maxSort)
     const minSort = useAppSelector<number>(state => state.pack.minSort)
+    const maxCardsCount = useAppSelector<number>(state => state.pack.maxCardsCount)
+    const minCardsCount = useAppSelector<number>(state => state.pack.minCardsCount)
 
     const searchByPackName = (search: string) => {
         dispatch(setSearchPackName(search))
@@ -92,10 +95,7 @@ const Profile = () => {
                             onClickChangeEditModeHandler={onClickChangeEditModeHandler}
                             onClickLogoutChangeHandler={onClickLogoutChangeHandler}
                         />
-                        <div className={style.cardsInfo}>
-                            <span className={style.textInCardsInfo}> information for cards </span>
-                            <MultiRangeSlider min={0} max={100}/>
-                        </div>
+                        <div className={style.cardsInfo}></div>
                     </div>
                 </div>
 
