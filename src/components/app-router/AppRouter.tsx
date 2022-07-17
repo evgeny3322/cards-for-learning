@@ -10,8 +10,8 @@ import style from './AppRouter.module.css'
 import {Login} from '../pages/Login/Login';
 import {CardsList} from '../pages/CardsTable/CardsList';
 import {RequireAuth} from "../common/RequireAuth/RequireAuth";
-import PacksList from "../pages/PacksList/PacksList";
 import LearnPack from "../pages/CardsTable/LearnCard";
+import PacksList from "../pages/PacksList/PacksList";
 
 export const AppRouter = () => {
 
@@ -30,6 +30,7 @@ export const AppRouter = () => {
                     <Route path={'/cards/:id'} element={<CardsList/>} />
                     <Route path={'/card/:id'} element={<LearnPack/>}/>
                     <Route path={'pack-table'} element={
+
                         <RequireAuth>
                             <PacksList/>
                         </RequireAuth>
