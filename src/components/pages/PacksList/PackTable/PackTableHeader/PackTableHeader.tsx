@@ -19,15 +19,17 @@ export const PackTableHeader: FC<PropsType> =
         return (
             <TableHead sx={styleTHead}>
                 <TableRow sx={styleAlignCell}>
-                    <TableCell >
+                    <TableCell>
                         <TableSortLabel
                             sx={styleActiveLabel}
                             active={sortBy === 'name'}
                             direction={sortBy === 'name' ? order : 'asc'}
                             onClick={onClickSortByHandler('name')}
-                        >Pack name</TableSortLabel>
+                        >
+                            Pack name
+                        </TableSortLabel>
                     </TableCell>
-                    <TableCell >
+                    <TableCell>
                         <TableSortLabel
                             sx={styleActiveLabel}
                             active={sortBy === 'cardsCount'}
@@ -77,5 +79,8 @@ const styleAlignCell = {
 
 const styleActiveLabel = {
     color: '#fff !important',
-    '& svg': {color: '#fff !important'}
+    '& svg': {
+        color: '#fff !important',
+        opacity: '1'
+    },
 }
