@@ -8,7 +8,7 @@ import {TestsComponents} from '../pages/TestsComponents';
 import {Layout} from './layout/Layout';
 import style from './AppRouter.module.css'
 import {Login} from '../pages/Login/Login';
-import {CardsList} from '../pages/CardsTable/CardList/CardsList';
+import {CardsList} from '../pages/CardsTable/CardsList/CardsList';
 import {RequireAuth} from "../common/RequireAuth/RequireAuth";
 import LearnPack from "../pages/CardsTable/LearnCard/LearnCard";
 import {PacksList} from "../pages/PacksList/PacksList";

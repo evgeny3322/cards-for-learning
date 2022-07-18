@@ -14,11 +14,11 @@ import {useAppDispatch, useAppSelector} from "../../../bll/store";
 import {PackCard} from "../../../api/pack-api";
 import {controlModalWindowAC} from "../../../bll";
 import SearchField from "../../common/SearchField/SearchField";
-import {styleBtn} from "../Login/LoginProperties";
 import {PackTable} from "./PackTable/PackTable";
 import {Pagination} from "../../common/Pagination/Pagination";
 import {Switcher} from "./Switcher/Switcher";
 import {RangeSlider} from "../../common/RangeSlider/RangeSllider";
+import style from "../Profile/Profile.module.css";
 
 
 export const PacksList = () => {
@@ -81,17 +81,15 @@ export const PacksList = () => {
                     <SearchField searchCallback={searchByPackName} placeholder={'Search'}
                                  initState={packName}/>
 
-                    <div className={stylesPL.buttonPosition}>
+                    <div className={style.buttonPosition}>
                         <Button
-                            sx={[{
+                            sx={{
                                 borderRadius: '4px',
-                                fontWeight: 'bold',
-                                margin: '0px 0 14px 0',
-                                padding: '8px 16px 4px',
+                                margin: '0px',
                                 color: '#ffff',
                                 height: 'auto',
                                 background: 'linear-gradient(to right, #344654, #344654)'
-                            }]}
+                            }}
                             variant={'contained'}
                             onClick={openAddModalWindowHandle}
                         >

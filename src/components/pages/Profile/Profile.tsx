@@ -42,8 +42,6 @@ const Profile = () => {
     const order = useAppSelector<'desc' | 'asc'>(state => state.pack.order)
     const maxSort = useAppSelector<number>(state => state.pack.maxSort)
     const minSort = useAppSelector<number>(state => state.pack.minSort)
-    const maxCardsCount = useAppSelector<number>(state => state.pack.maxCardsCount)
-    const minCardsCount = useAppSelector<number>(state => state.pack.minCardsCount)
 
     const searchByPackName = (search: string) => {
         dispatch(setSearchPackName(search))

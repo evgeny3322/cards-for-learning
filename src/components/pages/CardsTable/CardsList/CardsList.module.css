@@ -27,3 +27,9 @@
     gap: 12px;
     width: 100%;
 }
+
+.buttonPosition {
+    align-self: self-end;
+    display: flex;
+    flex-direction: column;
+}
