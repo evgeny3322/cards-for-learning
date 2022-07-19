@@ -53,10 +53,12 @@ export const PackItem: FC<PropsType> = (props) => {
             key={packID}
             sx={[styleTd, styleAlignCell]}
         >
-            <TableCell><Link to={`/cards/${packID}`} onClick={
-                (
-                    e
-                ) => handlerGetCards(e, cardsCount, isOwner)}>{packName}</Link></TableCell>
+            <TableCell>
+                <Link to={`/cards/${packID}`} style={{textDecoration: 'none'}}
+                      onClick={(e) => handlerGetCards(e, cardsCount, isOwner)}>
+                    {packName}
+                </Link>
+            </TableCell>
             <TableCell>{cardsCount}</TableCell>
             <TableCell>{createdDate}</TableCell>
             <TableCell>{createdByName}</TableCell>
