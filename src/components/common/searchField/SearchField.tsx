@@ -8,7 +8,7 @@ type SearchFieldType = {
     initState: string
 }
 
-const SearchField = (props: SearchFieldType) => {
+export const SearchField = (props: SearchFieldType) => {
     const [searchTerm, setSearchTerm] = useState<string>(props.initState);
     const debouncedSearchTerm: string = useDebounce<string>(searchTerm, 1000);
 
@@ -36,7 +36,6 @@ const SearchField = (props: SearchFieldType) => {
     );
 };
 
-export default SearchField;
 
 function useDebounce<T>(value: T, delay: number): T {
     const [debouncedValue, setDebouncedValue] = useState<T>(value);

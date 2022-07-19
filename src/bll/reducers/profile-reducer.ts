@@ -23,19 +23,40 @@ const initialState = {
 
 }
 
-export type ProfileActionsTypes =  UpdateUserInfoAT
+export type ProfileActionsTypes = UpdateUserInfoAT
 
 const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsTypes): ProfileStateType => {
     switch (action.type) {
-
-        default: return state
+        case 'profile/UPDATE-USER-INFO': {
+            return { ...state, name: action.profile.name, avatar: action.profile.avatar }
+        }
+        default:
+            return state
     }
 }
+
+
 
 export const updateUserInfo = (profile: ProfileStateType) =>
     ({ type: 'profile/UPDATE-USER-INFO', profile }) as const
 
-export const logoutProfile = (): ThunkType => async dispatch => {
+
+export const updateUserInfoTC =
+    (name: string, avatar: string | undefined): ThunkType => async (dispatch) => {
+        try {
+            dispatch(setLoadingStatus('loading'))
+            const res = await authApi.updateUserInformation(name, avatar)
+            dispatch(updateUserInfo(res.updatedUserInfo))
+
+        } catch (e: any) {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+            dispatch(setAppError(error))
+        } finally {
+            dispatch(setLoadingStatus('idle'))
+        }
+    }
+
+export const logoutProfileTC = (): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
         const res = await authApi.logOutProfile()
@@ -49,4 +70,7 @@ export const logoutProfile = (): ThunkType => async dispatch => {
     }
 }
 
+
+
 export default profileReducer
+

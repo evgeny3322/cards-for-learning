@@ -3,7 +3,7 @@ import user from '../../../../../assets/images/user.png'
 import style from '../../Profile.module.css'
 
 export type UserAvatarType = {
-    avatar: string | undefined} 
+    avatar?: string | undefined} 
 
 export const UserAvatar = ({avatar}:UserAvatarType) => {
   return (

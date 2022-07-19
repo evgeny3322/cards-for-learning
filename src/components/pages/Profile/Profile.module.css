@@ -55,8 +55,7 @@
     padding: 5px;
     flex: 0 1 auto;
     align-self: flex-start;
-    margin-top: 10px;
-
+    margin: 10px  auto;
 }
 
 .infoUser {
@@ -71,6 +70,7 @@
     height: 80px;
     width: 80px;
     border-radius: 50%;
+
 
 }
 

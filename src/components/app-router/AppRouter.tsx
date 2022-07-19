@@ -1,5 +1,4 @@
 import {Navigate, Route, Routes} from 'react-router-dom';
-import Profile from '../pages/Profile/Profile';
 import RecoveryPassword from '../pages/RecoveryPassword/RecoveryPassword';
 import NewPassword from '../pages/NewPassword/NewPassword';
 import Registration from '../pages/Registration/Registration';
@@ -12,6 +11,7 @@ import {CardsList} from '../pages/CardsTable/CardsList/CardsList';
 import {RequireAuth} from "../common/RequireAuth/RequireAuth";
 import LearnPack from "../pages/CardsTable/LearnCard/LearnCard";
 import {PacksList} from "../pages/PacksList/PacksList";
+import { Profile } from '../pages/Profile/Profile';
 
 export const AppRouter = () => {
 

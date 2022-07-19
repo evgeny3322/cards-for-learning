@@ -38,8 +38,8 @@ export const authApi = {
     newPassword(){
         return instance.post('/auth/set-new-password',);
     },
-    updateUserInfo(name: string, avatar: string) {
-        return instance.put<UpdateUserInfoType>(`auth/me`, {name, avatar})
+    updateUserInformation(name: string, avatar: string | undefined) {
+        return instance.put<UpdateUserInfoType>(`auth/me`, { name, avatar })
             .then(res => res.data)
     },
     logOutProfile() {
