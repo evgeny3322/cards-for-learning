@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core'
 import React from 'react'
-import { UserAvatar } from '../ProfileInfo/UserAvatar/UserAvatar'
+import { EditAvatar } from '../EditAvatarUser/EditAvatar'
 import { EditableSpan } from './EditableSpan/EditableSpan'
 import style from './EditProfileInfo.module.css'
 
@@ -26,7 +26,7 @@ export const EditProfileInfo = ({ title, setTitle, avatarUser, setAvatarUser, em
             <div className={style.editUserInfo}>
                 <div className={style.info}>User information</div>
                 <div className={style.avatar}>
-                    <UserAvatar avatar={avatarUser} />
+                    <EditAvatar avatarUser={avatarUser} setAvatarUser={setAvatarUser}/>
                 </div>
                 <div className={style.information}>
                     <EditableSpan name={'Name: '} title={title} disabled={false} setTitle={setTitle} />
