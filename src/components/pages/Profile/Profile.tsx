@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../bll/store';
 import style from './Profile.module.css'
-import MultiRangeSlider from './MultiRangeSlider/MultiRangeSlider';
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
 import { Packs } from './Packs/Packs';
 import { EditProfileInfo } from './EditProfileInfo/EditProfileInfo';
@@ -24,7 +23,6 @@ export const Profile = React.memo(() => {
 
     const onClickChangeEditModeHandler = () => {
         setEditMode(!editMode)
-        // console.log(editMode);
     }
 
     const onClickLogoutChangeHandler = () => {
@@ -57,16 +55,14 @@ export const Profile = React.memo(() => {
                                 name={name}
                                 email={email}
                                 packsCount={packsCount}
+                                editMode={editMode}
+                                setEditMode={setEditMode}
                                 onClickChangeEditModeHandler={onClickChangeEditModeHandler}
                                 onClickLogoutChangeHandler={onClickLogoutChangeHandler}
                             />
-                            <div className={style.cardsInfo}>
-                                <span className={style.textInCardsInfo}> information for cards </span>
-                                <MultiRangeSlider min={0} max={100} />
-                            </div>
+                            <div className={style.cardsInfo}></div>
                         </div>
                     </div>
-
                     <Packs isAuth={isAuth} />
                 </div>
 

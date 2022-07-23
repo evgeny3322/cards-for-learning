@@ -28,7 +28,6 @@
 .cardsInfo {
     grid-area: cardsInfo;
     border-top: 2px solid black;
-
 }
 
 .cards {

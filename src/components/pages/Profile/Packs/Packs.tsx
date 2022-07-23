@@ -1,7 +1,6 @@
 import React from 'react'
 import style from '../Profile.module.css'
 import Button from '@mui/material/Button';
-import { styleBtn } from '../../Login/LoginProperties';
 import { PackTable } from '../../PacksList/PackTable/PackTable';
 import { Pagination } from '../../../common/Pagination/Pagination';
 import { useAppDispatch, useAppSelector } from '../../../../bll/store';
@@ -64,13 +63,14 @@ export const Packs = ({ isAuth }: PacksType) => {
 
             <div className={style.buttonPosition}>
                 <Button
-                    sx={[styleBtn, {
+                    sx={[{
                         borderRadius: '4px',
                         fontWeight: 'bold',
                         margin: '0px 0 14px 0',
                         padding: '8px 16px 4px',
-                        color: '#2c2b3f',
-                        height: 'auto'
+                        color: '#ffff',
+                        height: 'auto',
+                        background: 'linear-gradient(to right, #344654, #344654)'
                     }]}
                     variant={'contained'}
                     onClick={openAddModalWindowHandle}
