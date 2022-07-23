@@ -13,12 +13,12 @@ import stylesPL from './PacksList.module.css';
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
 import {PackCard} from "../../../api/pack-api";
 import {controlModalWindowAC} from "../../../bll";
-import SearchField from "../../common/SearchField/SearchField";
 import {PackTable} from "./PackTable/PackTable";
 import {Pagination} from "../../common/Pagination/Pagination";
 import {Switcher} from "./Switcher/Switcher";
 import {RangeSlider} from "../../common/RangeSlider/RangeSllider";
 import style from "../Profile/Profile.module.css";
+import { SearchField } from '../../common/SearchField/SearchField';
 
 
 export const PacksList = () => {

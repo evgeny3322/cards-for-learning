@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './CardsList.module.css';
-import {Link, useParams} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../../../bll/store';
+import { Link, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../bll/store';
 import {
     fetchCards,
     OrderType, searchByAnswer,
@@ -11,23 +11,23 @@ import {
     setCards,
     setPackId
 } from '../../../../bll/reducers/cards-reducer';
-import {CardsTable} from '../CardsTable';
-import {CardType} from '../../../../api/cards-api';
-import {Button} from '@mui/material';
+import { CardsTable } from '../CardsTable';
+import { CardType } from '../../../../api/cards-api';
+import { Button } from '@mui/material';
 import styles from '../../Profile/Profile.module.css';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import SearchField from '../../../common/SearchField/SearchField';
-import {Pagination} from '../../../common/Pagination/Pagination';
+import { Pagination } from '../../../common/Pagination/Pagination';
 import {
     controlModalWindowAC,
     ModalComponentType,
     setCurrentPackPropsAC
 } from '../../../../bll';
-import {styleBtn} from '../../../../styles/commonMui';
+import { styleBtn } from '../../../../styles/commonMui';
+import { SearchField } from '../../../common/SearchField/SearchField';
 
 export const CardsList = () => {
     const dispatch = useAppDispatch()
-    const {id: packUrlId} = useParams()
+    const { id: packUrlId } = useParams()
 
     const cards = useAppSelector<CardType[]>(state => state.cards.cards)
     const cardsCurrentPage = useAppSelector<number>(state => state.cards.page)
@@ -71,13 +71,13 @@ export const CardsList = () => {
     }, [cardsAnswer, cardsQuestion, cardsCurrentPage, cardsPageCount, packUrlId, sortCards, order])
 
     return (
-        <div style={{margin: '30px auto'}}>
+        <div style={{ margin: '30px auto' }}>
             <div className={styles.container}>
                 <div className={s.contentBlock}>
                     <div className={s.backLinkWrapper}>
                         <Link className={s.backLink} to={'../pack-table'}
-                              onClick={backToPacksHandler}>
-                            <ArrowRightAltIcon sx={arrow}/>
+                            onClick={backToPacksHandler}>
+                            <ArrowRightAltIcon sx={arrow} />
                             Back</Link>
                     </div>
                     <div className={s.cardsSearchBar}>
@@ -113,15 +113,15 @@ export const CardsList = () => {
                     }
 
                     <CardsTable cards={cards}
-                                order={order}
-                                sortCards={sortCards}
-                                packUserId={cardsPackUserID}
-                                authorizedUserId={authorizedUserId}/>
+                        order={order}
+                        sortCards={sortCards}
+                        packUserId={cardsPackUserID}
+                        authorizedUserId={authorizedUserId} />
                     <Pagination page={cardsCurrentPage}
-                                pageCount={cardsPageCount}
-                                cardsPacksTotalCount={cardsTotalCount}
-                                setPageCallback={setCardsPageCallback}
-                                setPageCountCallback={setCardsPageCountCallback}
+                        pageCount={cardsPageCount}
+                        cardsPacksTotalCount={cardsTotalCount}
+                        setPageCallback={setCardsPageCallback}
+                        setPageCountCallback={setCardsPageCountCallback}
                     />
                 </div>
             </div>
