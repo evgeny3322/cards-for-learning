@@ -32,8 +32,8 @@ export const Login = () => {
 
     const formik = useFormik({
         initialValues: {
-            email: '',
-            password: '',
+            email: 'nya-admin@nya.nya',
+            password: '1qazxcvBG',
             rememberMe: false
         },
         validationSchema: Yup.object({
@@ -64,7 +64,6 @@ export const Login = () => {
 
                             <FormGroup>
                                 <TextField
-                                    defaultValue="Hello World"
                                     id={'email'}
                                     style={styleInput}
                                     label={'email'}
